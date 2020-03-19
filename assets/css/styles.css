@@ -1,3 +1,6 @@
 body{
-    background-color: blue;
+    background-color: #666;
+    color: white;
 }
+
+#loader{display:none}
