@@ -1,2 +1,2 @@
-# PruebaGitHub
- Primera clase de Prog Multimedial III
+# Nayla's Repository :)
+ Ejercicios de Programación Multimedial III

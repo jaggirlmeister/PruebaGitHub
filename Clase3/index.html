@@ -19,9 +19,9 @@
 
       <div class="field is-grouped">
         <p class="control is-expanded">
-          <input class="input" type="text" placeholder="Find a character">
+          <input class="input input_search" type="text" placeholder="Find a character">
         </p>
-        <p class="control">
+        <p class="control handle_search">
           <a class="button is-info">
             Search
           </a>
@@ -78,22 +78,92 @@ const cardItem = props => {
     `
 }
 
+/*
 const $grid = document.querySelector('.grid');
 const cardElement = cardItem({image: '', name: 'Lean', species: 'Human', origin:{name: 'Earth', }})
-console.log(cardElement)
+console.log(cardElement);
 
 setTimeout(() =>{
     $grid.innerHTML += cardElement
 }, 3000);
+*/
 
-const main = () =>{
+const getCharacters = async (baseURL, from, to) =>{
 
-    const  baseURL = 'https://rickandmortyapi.com/api/'
+    //Array.from({length: 5}, (v,i) => i);
+    const charactersRange = Array.from({length: to - from +1}, (_,index) =>index +1).join(',');
+    console.log(charactersRange);
+    const url = `${baseURL}character/${charactersRange}`
+    console.log(url);
+
+    const response = await fetch(url);
+    const characters = await response.json();
+
+    return characters;
+}
+
+const getCharactersByQuery = async (baseURL, query) => {
+    const url = `${baseURL}/character/?name=${query}`;
+    const response = await fetch(url);
+    const characters = await response.json();
+    return characters
+} 
+
+const appendElements = (characters, emptyGrid) => {
+    const $grid = document.querySelector('.grid');
+    if(emptyGrid){ $grid.innerHTML = null;}
+    characters.forEach(character =>{
+        const cardItemHtml = cardItem(character);
+        $grid.innerHTML += cardItemHtml;
+    });
+}
+
+const main = async () =>{
+
+    const  baseURL = 'https://rickandmortyapi.com/api/'; 
+
     //1. Obtener elementos de la api y mostrarlos en el DOM
+    const characters = await getCharacters(baseURL, 1, 20);
+    console.log(characters)
+    appendElements(characters)
 
     //2. Crear un buscador de personajes
+    const $submit = document.querySelector('.handle_search');
+    $submit.addEventListener('click',async (event)=>{ 
+        event.preventDefault();
+        const $input = document.querySelector('.input_search');
+        const valor = $input.value;
+
+        const charactersByQuery = await getCharactersByQuery(baseURL, valor);
+        console.log(charactersByQuery.results)
+        appendElements(charactersByQuery.results, true)
+    })
+
+    //Modal
+    
+    const $modalOpen = document.querySelectorAll('.modal_close');
+
+    const $modal = document.querySelector('.modal');
+    const $modalClose = document.querySelector('.modal-close');
+
+    //porque querySelectorAll devuelve un array
+    $modalOpenArr.forEach((boton) => {
+        boton.addEventListener('click', () =>{
+            $modal.classList.add('is-active');
+            console.log('click')
+        })
+    })
+
+    $modal.addEventListener('click', ()=>{ 
+        $modal.classList.add('is-active');
+    })
+    $modal.addEventListener('click', ()=>{
+        $modal.classList.remove('is-active');
+    })
 
 }
+
+main();
 
 </script>
   

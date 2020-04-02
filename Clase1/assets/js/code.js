@@ -1,6 +1,5 @@
 $( document ).ready(function() {
-
-
+    
     $("#handle_ajax").click (function(){
         $.ajax({
             url: 'https://reqres.in/api/users',
@@ -30,24 +29,3 @@ $( document ).ready(function() {
     })
 
 });
-
-
-/* 
-$('#listado').append('<li>Usuario 1</li>');
-$('#listado').append('<li>Usuario 2</li>');
-$('#listado').append('<li>Usuario 3</li>');
-$('#listado').append('<li>Usuario 4</li>');
-$('#listado').append('<li>Usuario 5</li>');
- */
-
-/*    
-var mi_var = "holis"
-console.log( "ready!", mi_var ); 
-*/
-
-
-/* 
-function pepe ();
-
-const pepe = () => {};  
-*/
