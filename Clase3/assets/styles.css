@@ -11,6 +11,10 @@ img{
     margin-bottom: 2em ;
 }
 
+#logo{
+    width: 47%;
+}
+
 .container{
     padding: 0em 2em 2em 2em;
 }
@@ -221,4 +225,8 @@ tbody tr:hover{
 .message-body {
     font-size: 19px;
     color: white;
+}
+
+.container {
+    width: 1200px !important;
 }
